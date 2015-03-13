@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Quiz time</title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" type="text/css" href="css/reset.css"/>       
+  <link rel="stylesheet" type="text/css" href="js/jquery-ui/jquery-ui.css"/>
+  <link rel="stylesheet" type="text/css" href="css/style2.css"/> 
+
+  
+  <script type="text/javascript">
+
+  
+//timer-------------------------- 
+
+var flagclock = 0;
+var flagstop = 1;
+var stoptime = 0;
+var currenttime;
+var splitdate = '';
+var output;
+var clock;
+
+function startstop()
+{
+
+  /*var startstop = document.getElementById('startstoptimer');*/
+  var startdate = new Date();
+  var starttime = startdate.getTime();
+  document.getElementById('main1').style.display="none";
+  document.getElementById('main2').style.display="block";
+  document.getElementById('head').style.display="block";
+  document.getElementById('next').style.display="block";
+
+  if(flagclock==0)
+  {
+   startstop.value = 'Stop';
+   flagclock = 1;
+   counter(starttime);
+ }
+ else
+ {
+   startstop.value = 'Start';
+   flagclock = 0;
+   flagstop = 1;
+   splitdate = '';
+ }
+
+}
+
+function counter(starttime)
+{
+  output = document.getElementById('output');
+  clock = document.getElementById('clock');
+  currenttime = new Date();
+
+  var timediff = currenttime.getTime() - starttime;
+
+  if(flagstop == 1)
+  {
+   timediff = timediff + stoptime
+ }
+ if(flagclock == 1)
+ {
+   clock.value = formattime(timediff,'');
+   refresh = setTimeout('counter(' + starttime + ');',10);
+
+ }
+ else
+ {
+   window.clearTimeout(refresh);
+   stoptime = timediff;
+
+ }
+}
+
+function formattime(rawtime,roundtype)
+{
+  if(roundtype == 'round')
+  {
+   var ds = Math.round(rawtime/100) + '';
+ }
+ else
+ {
+   var ds = Math.floor(rawtime/100) + '';		
+ }
+ var sec = Math.floor(rawtime/1000);
+ var min = Math.floor(rawtime/60000);
+ ds = ds.charAt(ds.length - 1);
+ if(min >= 60)
+ {
+   startstop();
+ }
+ sec = sec - 60 * min + '';
+ if(sec.charAt(sec.length - 2) != '')
+ {
+   sec = sec.charAt(sec.length - 2) + sec.charAt(sec.length - 1);
+ }
+ else
+ {
+   sec = 0 + sec.charAt(sec.length - 1);
+ }	
+ min = min + '';
+ if(min.charAt(min.length - 2) != '')
+ {
+   min = min.charAt(min.length - 2)+min.charAt(min.length - 1);
+ }
+ else
+ {
+   min = 0 + min.charAt(min.length - 1);
+ }
+ return min + ':' + sec;
+}
+
+</script>
+
+</head>
+
+<body>
+
+  <div id="head">
+
+    <h1><img src="images/bold-red-quiz.png" width="140px"/></h1>
+    <div class="time">Time:<br>
+      <input id="clock" type="text" value="00:00" readonly>   
+    </div>
+    <div class="score">Current Score:<span id="res"></span></div>   
+
+  </div>    
+
+  <div id="main" class="container">
+
+    <div id="main1">
+      <img src="images/quiz.png" width="200" />
+      <h2><img src="images/bold-red-quiz.png" width="180px"/></h2>
+      <h3>This quiz tests you about technology.</h3>
+      <input id="startstoptimer" type="button" value="Start" onClick="startstop();" style="font-weight:bold">
+      <button id="add1" style="font-weight:bold">Add Question</button>
+    </div>
+
+    <div id="main2" class="slider" > 
+
+      <div class="q-label">Question <span id="text">1</span> of 10</div> 
+
+      <div  class="progress-box">
+        <progress id="pg" value="" max="100"></progress>
+        <span id="p-label" class="p-value">0%</span>
+      </div><!--progress-box-->
+
+      <div class="separator"></div>
+      <div id="question">'.MOV' extension refers usually to what kind of file?</div>         
+      <div id="quesoption"></div>    
+      <div class="separator"></div>
+      
+    </div>
+
+  </div>
+
+  <div id="ctrl">
+
+    <div id="next">
+      <input type="button" id="changebtn" value="Next Question">      
+    </div>  
+
+  </div>
+
+  <!--modal form-->
+  <div id="dialog-form" title="Add New Question">
+    <form>
+      <fieldset>
+        <div class="mo-que">
+          <label for="question"></label>
+          <textarea placeholder=" Enter your question here" class="text ui-widget-content ui-corner-all"></textarea>
+        </div><!--mo-que-->
+        <div class="mo-opt">
+          <label for="options"></label>
+          <ul class="options">  
+            <li><label for="one"></label><input type="text" placeholder=" Option 1"></li>
+            <li><label for="one"></label><input type="text" placeholder=" Option 2"></li>
+            <li><label for="one"></label><input type="text" placeholder=" Option 3"></li>
+            <li><label for="one"></label><input type="text" placeholder=" Option 4"></li>
+          </ul>
+          <div class="rgt-ans">
+            <label for="rightanswer"></label>
+            <div class="ans-box">
+              <input type="text" placeholder="Correct Option" class="text ui-widget-content ui-corner-all">
+            </div>  
+          </div><!--rgt-ans-->
+        </div><!--mo-opt-->
+      </fieldset> 
+    </form>
+  </div>
+  <script>
+
+  var quiz = [{ 
+    "question": "'.MOV' extension refers usually to what kind of file?",
+    "qoption": ["Image file", "Animation/movie file", "Audio file","MS Office document"],
+    "correct": "Animation/movie file"
+  }, {  
+    "question": "Who developed Yahoo?",
+    "qoption": ["Dennis Ritchie & Ken Thompson", "David Filo & Jerry Yang", "Vint Cerf & Robert Kahn","Steve Case & Jeff Bezos"],
+    "correct": "David Filo & Jerry Yang"
+  }, {  
+    "question": "In the United States the television broadcast standard is...?",
+    "qoption": ["PAL", "NTSC", "SECAM","RGB"],
+    "correct": "NTSC"
+  },{  
+    "question": "In what year was the '@' chosen for its use in e-mail addresses?",
+    "qoption": ["1976", "1972", "1980","1984"],
+    "correct": "1972"
+  },{  
+    "question": "Compact discs, (according to the original CD specifications) hold how many minutes of music?",
+    "qoption": ["74 mins", "56 mins", "60 mins","90 mins"],
+    "correct": "74 mins"
+  },{  
+    "question": "Where is the headquarters of Intel located?",
+    "qoption": ["Redmond, Washington", "Tucson, Arizona", "Santa Clara, California","Richmond, Virginia"],
+    "correct": "Santa Clara, California"
+  },{  
+    "question": "What is the term to ask the computer to put information in order numerically or alphabetically?",
+    "qoption": ["Crop", "Report", "Record","Sort"],
+    "correct": "Sort"
+  },{  
+    "question": "What is part of a database that holds only one type of information?",
+    "qoption": ["Report", "Field", "Record","File"],
+    "correct": "Field"
+  },{  
+    "question": "Who is largely responsible for breaking the German Enigma codes, created a test that provided a foundation for artificial intelligence?",
+    "qoption": ["Alan Turing", "Jeff Bezos", "George Boole","Charles Babbage"],
+    "correct": "Alan Turing"
+  },{  
+    "question": "'.TMP' extension refers usually to what kind of file?",
+    "qoption": ["Compressed Archive file", "Image file", "Temporary file","Audio file"],
+    "correct": "Temporary file"
+  }];
+
+    // define elements
+    var content = $("main2"),
+    questionContainer = $("question"),
+    choicesContainer = $("quesoption"),
+    scoreContainer = $("res"),  qtext = $("text"),
+    submitBtn = $("changebtn");
+    var current=0;
+    var progress=document.getElementById("pg");
+    var progressLabel=document.getElementById("p-label");
+
+    function updateProgress(qindex)
+    {
+
+     var percentage=0;
+     percentage=(qindex/(quiz.length))*100;
+     progress.value=percentage;
+     progressLabel.innerHTML=percentage+"%";
+   } 
+
+    // init vars
+    var currentQuestion = 0,  res = 0, askingQuestion = true;
+
+        function $(id) { // shortcut for document.getElementById
+          return document.getElementById(id);
+        }
+
+
+        
+        function askQuestion() {
+          var choices = quiz[currentQuestion].qoption,choicesHtml = "";   
+
+           /* ++current;
+           updateProgress(current);*/
+
+    // loop through choices, and create radio buttons
+    for (var i = 0; i < choices.length; i++) {
+     choicesHtml += "<input type='radio' name='quiz" + currentQuestion +
+     "' id='choice" + (i + 1) +
+     "' value='" + choices[i] + "' onClick='Engine("+ (currentQuestion+1) +", this.value)'>" +
+     " <label for='choice" + (i + 1) + "'>" + choices[i] + "</label><br>";
+   }
+   qtext.textContent = currentQuestion+1;
+        // load the question
+        questionContainer.textContent = quiz[currentQuestion].question;
+
+        // load the choices
+        choicesContainer.innerHTML = choicesHtml;
+
+        // setup for the first time
+        if (currentQuestion === 0) {
+          scoreContainer.textContent = "0";
+          submitBtn.value = "Submit Answer";
+        }
+
+      }
+
+      function checkAnswer() {
+       
+          // are we asking a question, or proceeding to next question?
+          if (askingQuestion) {
+            if(currentQuestion < 9) {              
+              submitBtn.value = "Next Question";
+               ++current;
+          // if last reached
+          updateProgress(current);
+          // console.log("q index="+qindex);
+            }
+              else
+                { submitBtn.value="Get Result"; 
+                    ++current;
+          // if last reached
+          updateProgress(current);
+          // console.log("q index="+qindex);
+            } 
+              askingQuestion = false;
+
+        // determine which radio button they clicked
+        var userpick,
+        correctIndex,
+        radios = document.getElementsByName("quiz" + currentQuestion);
+        for (var i = 0; i < radios.length; i++) {
+              if (radios[i].checked) { // if this radio button is checked
+                userpick = radios[i].value;
+              }
+
+              // get index of correct answer
+              if (radios[i].value == quiz[currentQuestion].correct) {
+                correctIndex = i;
+              }
+            }
+
+    // setup if they got it right, or wrong
+    var labelStyle = document.getElementsByTagName("label")[correctIndex].style;
+    labelStyle.fontWeight = "bold";
+    if (userpick == quiz[currentQuestion].correct) {
+      res++;
+      score++;
+      labelStyle.color = "green";
+    } else {
+      labelStyle.color = "red";
+    }
+
+
+    scoreContainer.textContent = res ;
+
+          } else { // move to next question
+            // setting up so user can ask a question
+            askingQuestion = true;
+            // change button text back to "Submit Answer"
+            submitBtn.value = "Submit Answer";
+            // if we're not on last question, increase question number
+            if (currentQuestion < quiz.length - 1) {
+              currentQuestion++;
+              askQuestion();
+            } else {
+              showFinalResults();
+            }
+          }
+        }
+
+        //final page score function------------
+
+        var ans = new Array;
+        var done = new Array;
+        var yourAns = new Array;
+        var explainAnswer = new Array;
+
+        var score = 0;
+        ans[1] = "Animation/movie file";
+        ans[2] = "David Filo & Jerry Yang";
+        ans[3] = "NTSC";
+        ans[4] = "1972";
+        ans[5] = "74 mins";
+        ans[6] = "Santa Clara, California";
+        ans[7] = "Sort";
+        ans[8] = "Field";
+        ans[9] = "Alan Turing";
+        ans[10] = "Temporary file";
+
+        explainAnswer[1]="The reason of correct ans-1 is...";
+        explainAnswer[2]="The reason of correct ans-2 is...";
+        explainAnswer[3]="The reason of correct ans-3 is...";
+        explainAnswer[4]="The reason of correct ans-4 is...";
+        explainAnswer[5]="The reason of correct ans-5 is...";
+        explainAnswer[6]="The reason of correct ans-6 is...";
+        explainAnswer[7]="The reason of correct ans-7 is...";
+        explainAnswer[8]="The reason of correct ans-8 is...";
+        explainAnswer[9]="The reason of correct ans-9 is...";
+        explainAnswer[10]="The reason of correct ans-10 is...";
+
+        function Engine(question, answer) {
+          yourAns[question]=answer;           
+        }
+
+        function resScore(){
+    //get timer value here
+    var answerText = "";
+    for(i=1;i<=10;i++){
+      answerText=answerText+"<br>Question :"+i+"\n";
+      if(ans[i]!=yourAns[i]){
+        answerText=answerText+"<br>The correct answer was "+ans[i]+"<br>"+explainAnswer[i]+"<br>";
+      }else{
+        answerText=answerText+" <br>Correct! <br>";
+      }
+    }
+
+    answerText=answerText+"<br><br>Your total score is : "+score+"<br>";
+
+    //now score the user
+    answerText=answerText+"<br>Comment : ";
+    if(score<=0){
+      answerText=answerText+"You need to learn some more";
+    }
+    if(score>=1 && score <=4){
+      answerText=answerText+"bit more practice";
+    }
+    if(score>=5 && score <=7){
+      answerText=answerText+"doing ok";
+    }
+    if(score>8){
+      answerText=answerText+"Bravo!";
+    }
+    document.getElementById('ctrl').id="ctrl2";  
+    var x = document.getElementById("clock").value;
+    document.getElementById("totaltime").innerHTML = "You finished the Quiz in: " + x;
+    document.getElementById('result').innerHTML = answerText;
+    /*alert(answerText);*/
+  }
+
+  function showFinalResults() {
+   document.getElementById('head').style.display="none";
+   submitBtn.style.display="none";
+   content.innerHTML = "<h2>You've complited the quiz!</h2><img id='resimg' src='images/res.png' width='140px'/>" +
+   "<h3>Your result is: " + Math.round(score / quiz.length * 100) + "%</h3><br><p id='result'></p><div id='totaltime'></div> <h3> You may close this window now.</h3> ";
+   resScore();   
+ }
+
+ window.addEventListener("load", askQuestion, false);
+ submitBtn.addEventListener("click", checkAnswer, false);
+
+ </script>
+
+<script type="text/javascript" src="js/jquery-1.11.2.js"></script> 
+<script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="js/quiz.js"></script>
+
+</body>
+
+</html>

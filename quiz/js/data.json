@@ -1,0 +1,41 @@
+var quiz = [{ 
+          "question": "'.MOV' extension refers usually to what kind of file?",
+          "qoption": ["Image file", "Animation/movie file", "Audio file","MS Office document"],
+          "correct": "Animation/movie file"
+        }, {  
+          "question": "Who developed Yahoo?",
+          "qoption": ["Dennis Ritchie & Ken Thompson", "David Filo & Jerry Yang", "Vint Cerf & Robert Kahn","Steve Case & Jeff Bezos"],
+          "correct": "David Filo & Jerry Yang"
+        }, {  
+          "question": "In the United States the television broadcast standard is...?",
+          "qoption": ["PAL", "NTSC", "SECAM","RGB"],
+          "correct": "NTSC"
+        },{  
+          "question": "In what year was the '@' chosen for its use in e-mail addresses?",
+          "qoption": ["1976", "1972", "1980","1984"],
+          "correct": "1972"
+        },{  
+          "question": "Compact discs, (according to the original CD specifications) hold how many minutes of music?",
+          "qoption": ["74 mins", "56 mins", "60 mins","90 mins"],
+          "correct": "74 mins"
+        },{  
+          "question": "Where is the headquarters of Intel located?",
+          "qoption": ["Redmond, Washington", "Tucson, Arizona", "Santa Clara, California","Richmond, Virginia"],
+          "correct": "Santa Clara, California"
+        },{  
+          "question": "What is the term to ask the computer to put information in order numerically or alphabetically?",
+          "qoption": ["Crop", "Report", "Record","Sort"],
+          "correct": "Sort"
+        },{  
+          "question": "What is part of a database that holds only one type of information?",
+          "qoption": ["Report", "Field", "Record","File"],
+          "correct": "Field"
+        },{  
+          "question": "Who is largely responsible for breaking the German Enigma codes, created a test that provided a foundation for artificial intelligence?",
+          "qoption": ["Alan Turing", "Jeff Bezos", "George Boole","Charles Babbage"],
+          "correct": "Alan Turing"
+        },{  
+          "question": "'.TMP' extension refers usually to what kind of file?",
+          "qoption": ["Compressed Archive file", "Image file", "Temporary file","Audio file"],
+          "correct": "Temporary file"
+        }];

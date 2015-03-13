@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Quiz time</title>
+            <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+            <link rel="stylesheet" type="text/css" href="css/reset.css">      
+            <link rel="stylesheet" type="text/css" href="css/style.css">  
+           
+<script type="text/javascript">
+ 
+//final page score function------------
+        
+        var ans = new Array;
+        var done = new Array;
+        var yourAns = new Array;
+        var explainAnswer = new Array;
+
+        var score = 0;
+        ans[1] = "2";
+        ans[2] = "2";
+        ans[3] = "2";
+        ans[4] = "2";
+        ans[5] = "1";
+        ans[6] = "3";
+        ans[7] = "4";
+        ans[8] = "2";
+        ans[9] = "1";
+        ans[10] = "3";
+
+
+        explainAnswer[1]="The reason of correct ans-1 is...";
+        explainAnswer[2]="The reason of correct ans-2 is...";
+        explainAnswer[3]="The reason of correct ans-3 is...";
+        explainAnswer[4]="The reason of correct ans-4 is...";
+        explainAnswer[5]="The reason of correct ans-5 is...";
+        explainAnswer[6]="The reason of correct ans-6 is...";
+        explainAnswer[7]="The reason of correct ans-7 is...";
+        explainAnswer[8]="The reason of correct ans-8 is...";
+        explainAnswer[9]="The reason of correct ans-9 is...";
+        explainAnswer[10]="The reason of correct ans-10 is...";
+       
+
+        function Engine(question, answer) {
+            yourAns[question]=answer;           
+        }
+ 
+        function Score(){
+             //get timer value here
+            var answerText = "";
+            for(i=1;i<=10;i++){
+                answerText=answerText+"<br>Question :"+i+"\n";
+         /*           alert("your ans"+yourAns[i]);
+            alert("ans"+ans[i]);*/
+                if(ans[i]!=yourAns[i]){
+                    answerText=answerText+"<br>The correct answer was "+ans[i]+"<br>"+explainAnswer[i]+"<br>";
+                }else{
+                    answerText=answerText+" <br>Correct! <br>";
+                score++;
+                }
+            }
+            answerText=answerText+"<br><br>Your total score is : "+score+"<br>";
+    //now score the user
+            answerText=answerText+"<br>Comment : ";
+            if(score<=0){
+                answerText=answerText+"You need to learn some more";
+            }
+            if(score>=1 && score <=2){
+                answerText=answerText+"bit more practice";
+            }
+            if(score>=3 && score <=3){
+                answerText=answerText+"doing ok";
+            }
+            if(score>4){
+                answerText=answerText+"Bravo!";
+            }
+            document.getElementById('ctrl').id="ctrl2";
+            var x = document.getElementById("clock").value;
+            document.getElementById("totaltime").innerHTML = "You finished the Quiz in: " + x;
+            document.getElementById('result').innerHTML = answerText;
+        /*alert(answerText);*/
+        }
+        
+// prev & next function-----------  
+
+          function next(){
+                nrShown++;   
+            document.getElementById('text').innerHTML = (nrShown+1);   
+            if(nrShown==10) {
+                flagclock=0;
+               document.getElementById('changebtn').onclick=hide();      
+            }
+            if(nrShown==9) {
+               document.getElementById('changebtn').value="Get Result";    
+            }
+            if(nrShown==1) {     
+                 document.getElementById('prev').style.display = "block"; 
+            }
+            if(nrShown == nrSlide) {
+              nrShown=0;
+            }
+            Effect();       
+            }
+
+        function prev(){
+            document.getElementById('text').innerHTML = (nrShown);      
+            if(nrShown==1) {      
+                   document.getElementById('prev').style.display = "none";   
+            }
+            if(nrShown==9) {      
+                   document.getElementById('next').style.display = "block";      
+                   document.getElementById('changebtn').value="next";  
+            }
+            nrShown--;
+            if(nrShown == -1) {
+                   nrShown = nrSlide -1;
+            }
+            Effect();
+            }
+        
+        function hide(){
+               document.getElementById('main2').style.display='none';
+               document.getElementById('main3').style.display='block';
+               document.getElementById('prev').style.display='none';
+               document.getElementById('next').style.display='none';
+               document.getElementById('head').style.display='none';
+               Score();      
+            }
+
+// Effect-------------------
+        function Effect(){
+            for (var i=0; i < nrSlide; i++){
+              vect[i].style.opacity = "0";
+              vect[i].style.display = "none";
+            }
+            vect[nrShown].style.opacity = "1";
+            vect[nrShown].style.display = "block";
+          }
+
+    //div change function------------------------------   
+            
+        nrSlide=10;
+        function load() {
+            nrShown = 0;
+            document.getElementById('prev').style.display = "none";
+            vect = new Array(nrSlide + 1);           
+            vect[0] = document.getElementById("panel1");
+            vect[0].style.display = "block";          
+            for (var i = 1; i < nrSlide; i++)	{     
+              vect[i] = document.getElementById("panel" + (i+1));     
+            }    
+        }
+
+    //radio button selected-----------------  
+        function checkRadio( obj,correct ){
+            var result = 0;
+            for(var i=0; i<obj.length; i++){
+                if(obj[i].checked==true && obj[i].value==correct){
+                    result = 1;
+                }
+            }
+            if(!result && obj.value == correct){
+                result = 1;
+                alert("You Ans is correct!!!");
+                var value = parseInt(document.getElementById('res').value, 10);
+                value = isNaN(value) ? 0 : value;
+                value++;
+                document.getElementById('res').value = value;
+            }
+            return result;
+        }
+
+        function validateRadio( obj ){
+            var result = 0;                
+            for(var i=0; i<obj.length; i++){
+                if(obj[i].checked==true ){
+                    result = 1;
+                }
+            }
+            return result;
+        }
+
+        function validateSubmit( obj ){
+            var err = '';            
+            if( !validateRadio( obj.q1 ) ){ err+='Q1. is nt answered<br>'; }else{err+='Q1. is answered<br>'; }
+            if( !validateRadio( obj.q2 ) ){ err+='Q2. is nt answered<br>'; }else{err+='Q2. is answered<br>'; }
+            if( !validateRadio( obj.q3 ) ){ err+='Q3. is nt answered<br>'; }else{err+='Q3. is answered<br>'; }
+             if( !validateRadio( obj.q4 ) ){ err+='Q4. is nt answered<br>'; }else{err+='Q4. is answered<br>'; }
+             if( !validateRadio( obj.q5 ) ){ err+='Q5. is nt answered<br>'; }else{err+='Q5. is answered<br>'; }
+             if( !validateRadio( obj.q6 ) ){ err+='Q6. is nt answered<br>'; }else{err+='Q6. is answered<br>'; }
+             if( !validateRadio( obj.q7 ) ){ err+='Q7. is nt answered<br>'; }else{err+='Q7. is answered<br>'; }
+             if( !validateRadio( obj.q8 ) ){ err+='Q8. is nt answered<br>'; }else{err+='Q8. is answered<br>'; }
+             if( !validateRadio( obj.q9 ) ){ err+='Q9.is nt answered<br>'; }else{err+='Q9. is answered<br>'; }
+             if( !validateRadio( obj.q10 ) ){ err+='Q10. is nt answered<br>'; }else{err+='Q10. is answered<br>'; }
+            if( err.length ){ 
+                document.getElementById('etext').innerHTML = (err);      
+                return false; 
+            }else{ 
+                document.getElementById('etext').innerHTML = ('all option are selected!');    
+                return true; 
+            }
+        }
+       
+//timer-------------------------- 
+        
+    var flagclock = 0;
+	var flagstop = 1;
+	var stoptime = 0;
+	var currenttime;
+	var splitdate = '';
+	var output;
+	var clock;
+
+	function startstop()
+		{
+       	var startdate = new Date();
+		var starttime = startdate.getTime();
+        document.getElementById('main1').style.display="none";
+        document.getElementById('main2').style.display="block";
+        document.getElementById('head').style.display="block";
+        document.getElementById('next').style.display="block";
+       
+		if(flagclock==0)
+			{
+			startstop.value = 'Stop';
+			flagclock = 1;
+			counter(starttime);
+			}
+		else
+			{
+			startstop.value = 'Start';
+			flagclock = 0;
+			flagstop = 1;
+			splitdate = '';
+			}          
+        }
+
+	function counter(starttime)
+		{
+		output = document.getElementById('output');
+		clock = document.getElementById('clock');
+		currenttime = new Date();
+           
+		var timediff = currenttime.getTime() - starttime;
+            
+		if(flagstop == 1)
+			{
+			timediff = timediff + stoptime
+			}
+		if(flagclock == 1)
+			{
+			clock.value = formattime(timediff,'');
+			refresh = setTimeout('counter(' + starttime + ');',10);
+               
+			}
+		else
+			{
+			window.clearTimeout(refresh);
+			stoptime = timediff;
+                
+			}
+		}
+
+	function formattime(rawtime,roundtype)
+		{
+		if(roundtype == 'round')
+			{
+			var ds = Math.round(rawtime/100) + '';
+			}
+		else
+			{
+			var ds = Math.floor(rawtime/100) + '';		
+			}
+		var sec = Math.floor(rawtime/1000);
+		var min = Math.floor(rawtime/60000);
+		ds = ds.charAt(ds.length - 1);
+		if(min >= 60)
+			{
+			startstop();
+			}
+		sec = sec - 60 * min + '';
+		if(sec.charAt(sec.length - 2) != '')
+			{
+			sec = sec.charAt(sec.length - 2) + sec.charAt(sec.length - 1);
+			}
+		else
+			{
+			sec = 0 + sec.charAt(sec.length - 1);
+			}	
+		min = min + '';
+		if(min.charAt(min.length - 2) != '')
+			{
+			min = min.charAt(min.length - 2)+min.charAt(min.length - 1);
+			}
+		else
+			{
+			min = 0 + min.charAt(min.length - 1);
+			}
+		return min + ':' + sec;
+		}
+    
+</script>
+           
+</head>
+    
+<body onload="load();">
+
+    <div id="head">
+
+        <h1><img src="images/bold-red-quiz.jpg" width="140px"/></h1>
+        <div class="time">Time:<br>
+            <input id="clock" type="text" value="00:00" readonly>    
+        </div>
+        <div class="score">Current Score:
+            <input id="res" type="text" value="0" readonly>
+        </div>  
+        
+    </div>
+     
+<form onsubmit="return validateSubmit(this); " action="#">  
+       
+    <div id="main" class="container">
+        
+        <div id="main1">
+            <img src="images/quiz.jpg" width="247" height="230"/>
+            <h2><img src="images/bold-red-quiz.jpg" width="180px"/></h2>
+            <h3>This quiz tests you about technology.</h3>
+            <input id="startstoptimer" type="button" value="Start" onClick="startstop();" style="font-weight:bold">
+        </div>
+        
+        <div class="slider" id="main2"> 
+            
+            <div class="q-label">Question <span id="text">1</span> of 10</div> 
+            <div class="separator"></div>
+            <div class="panel" id="panel1">
+       
+                <div class="question"><h4>'.MOV' extension refers usually to what kind of file?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q1" id="1" value="1" onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(1, this.value)">Image file</label>  
+                    <label><input type="radio" name="q1" id="2" value="2" onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(1, this.value)">Animation/movie file</label>
+                    <label><input type="radio" name="q1" id="3" value="3" onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(1, this.value)">Audio file</label>
+                    <label><input type="radio" name="q1" id="4" value="4" onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(1, this.value)">MS Office document</label>
+                </div>  
+                
+            </div>
+    
+            <div class="panel" id="panel2">
+        
+                <div class="question"><h4>Who developed Yahoo?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q2" id="1" value="1"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(2, this.value)">Dennis Ritchie & Ken Thompson</label>  
+                    <label><input type="radio" name="q2" id="2" value="2"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(2, this.value)">David Filo & Jerry Yang  </label>
+                    <label><input type="radio" name="q2" id="3" value="3"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(2, this.value)">Vint Cerf & Robert Kahn</label>
+                    <label><input type="radio" name="q2" id="4" value="4"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(2, this.value)">Steve Case & Jeff Bezos</label>
+                </div>
+                
+            </div>
+        
+            <div class="panel" id="panel3">
+        
+                <div class="question"><h4>In the United States the television broadcast standard is...?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q3" id="1" value="1"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(3, this.value)">PAL</label>  
+                    <label><input type="radio" name="q3" id="2" value="2"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(3, this.value)">NTSC</label>
+                    <label><input type="radio" name="q3" id="3" value="3"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(3, this.value)">SECAM</label>
+                    <label><input type="radio" name="q3" id="4" value="4"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(3, this.value)">RGB</label>
+                </div>
+                
+            </div>
+            
+             <div class="panel" id="panel4">
+        
+                <div class="question"><h4>In what year was the "@" chosen for its use in e-mail addresses?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q4" id="1" value="1"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(4, this.value)">1976</label>  
+                    <label><input type="radio" name="q4" id="2" value="2"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(4, this.value)">1972</label>
+                    <label><input type="radio" name="q4" id="3" value="3"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(4, this.value)">1980</label>
+                    <label><input type="radio" name="q4" id="4" value="4"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(4, this.value)">1984</label>
+                </div>
+                
+            </div>
+            
+             <div class="panel" id="panel5">
+        
+                <div class="question"><h4>Compact discs, (according to the original CD specifications) hold how many minutes of music?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q5" id="1" value="1"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(5, this.value)">74 mins</label>  
+                    <label><input type="radio" name="q5" id="2" value="2"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(5, this.value)">56 mins</label>
+                    <label><input type="radio" name="q5" id="3" value="3"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(5, this.value)">60 mins</label>
+                    <label><input type="radio" name="q5" id="4" value="4"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(5, this.value)">90 mins</label>
+                </div>
+                
+            </div>
+            
+             <div class="panel" id="panel6">
+        
+                <div class="question"><h4>Where is the headquarters of Intel located?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q6" id="1" value="1"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(6, this.value)">Redmond, Washington</label>  
+                    <label><input type="radio" name="q6" id="2" value="2"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(6, this.value)">Tucson, Arizona</label>
+                    <label><input type="radio" name="q6" id="3" value="3"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(6, this.value)">Santa Clara, California</label>
+                    <label><input type="radio" name="q6" id="4" value="4"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(6, this.value)">Richmond, Virginia</label>
+                </div>
+                
+            </div>
+            
+             <div class="panel" id="panel7">
+        
+                <div class="question"><h4>What is the term to ask the computer to put information in order numerically or alphabetically?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q7" id="1" value="1"  onchange="if(!checkRadio(this,4)) alert('Incorrect');" onClick="Engine(7, this.value)">Crop</label>  
+                    <label><input type="radio" name="q7" id="2" value="2"  onchange="if(!checkRadio(this,4)) alert('Incorrect');" onClick="Engine(7, this.value)">Report</label>
+                    <label><input type="radio" name="q7" id="3" value="3"  onchange="if(!checkRadio(this,4)) alert('Incorrect');" onClick="Engine(7, this.value)">Record</label>
+                    <label><input type="radio" name="q7" id="4" value="4"  onchange="if(!checkRadio(this,4)) alert('Incorrect');" onClick="Engine(7, this.value)">Sort</label>
+                </div>
+                
+            </div>
+            
+             <div class="panel" id="panel8">
+        
+                <div class="question"><h4>What is part of a database that holds only one type of information?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q8" id="1" value="1"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(8, this.value)">Report</label>  
+                    <label><input type="radio" name="q8" id="2" value="2"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(8, this.value)">Field</label>
+                    <label><input type="radio" name="q8" id="3" value="3"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(8, this.value)">Record</label>
+                    <label><input type="radio" name="q8" id="4" value="4"  onchange="if(!checkRadio(this,2)) alert('Incorrect');" onClick="Engine(8, this.value)">File</label>
+                </div>
+                
+            </div>
+            
+             <div class="panel" id="panel9">
+        
+                <div class="question"><h4>Who is largely responsible for breaking the German Enigma codes, created a test that provided a foundation for artificial intelligence?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q9" id="1" value="1"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(9, this.value)">Alan Turing</label>  
+                    <label><input type="radio" name="q9" id="2" value="2"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(9, this.value)">Jeff Bezos</label>
+                    <label><input type="radio" name="q9" id="3" value="3"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(9, this.value)">George Boole</label>
+                    <label><input type="radio" name="q9" id="4" value="4"  onchange="if(!checkRadio(this,1)) alert('Incorrect');" onClick="Engine(9, this.value)">Charles Babbage</label>
+                </div>
+                
+            </div>
+            
+             <div class="panel" id="panel10">
+        
+                <div class="question"><h4>'.TMP' extension refers usually to what kind of file?</h4></div>
+                <div class="ques-option">
+                    <label><input type="radio" name="q10" id="1" value="1"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(10, this.value)">Compressed Archive file</label>  
+                    <label><input type="radio" name="q10" id="2" value="2"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(10, this.value)">Image file</label>
+                    <label><input type="radio" name="q10" id="3" value="3"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(10, this.value)">Temporary file</label>
+                    <label><input type="radio" name="q10" id="4" value="4"  onchange="if(!checkRadio(this,3)) alert('Incorrect');" onClick="Engine(10, this.value)">Audio file</label>
+                </div>
+                
+            </div>
+            <div class="separator"></div>
+    </div>
+            
+    <div id="main3">  
+             
+        <h2> You've complited the quiz! </h2> <img id="resimg" src="images/res.jpg" width="140px"/>
+        <h3> Your final results are listed below.</h3> 
+        <p id="result"></p> 
+        <div id="totaltime"></div>
+        <h3> You may close this window now.</h3>
+        <h4> Summary of attempted Question:</h4>
+       
+    </div>
+    
+</div>
+    
+    <div id="ctrl">
+
+        <div id="prev">
+          <input type="button" value="Prev" onClick="prev();">
+        </div>
+        <div id="etext"></div>
+        <div id="next">
+          <input type="submit" id="changebtn" value="Next" onClick="next();">      
+        </div>
+
+    </div>
+    
+ </form>
+
+</body>
+    
+</html>

@@ -1,0 +1,24 @@
+maps-Location
+switch button...3questions
+calnder...birthdate
+combobox...city-state-country
+
+Profile strength
+
+Add a profile photo
+Add a header image/theme color
+
+Crop Profile Pic...Save changes&Cancel//change
+drag to move/zoom
+
+Do you like surfing?
+Do you like watching movies?
+Do you like dancing?
+
+ float:left;
+  width: 20%;
+  background-color: pink;
+
+ <!--  <div class="content">Upload Profile Photo</div>
+              <input type='file' />
+              <img id="myImg" src="src/photo_album_default.gif" alt="your image" /> -->

@@ -1,0 +1,266 @@
+body {
+    margin: 0 auto;
+    width: 63%; 
+    margin-top: 0px;
+    font-family:Times New Roman;
+}
+
+.container {
+    padding: 5px;
+    padding-bottom: 0px;
+}
+
+.ques-label {
+    margin-bottom: 50px;
+}
+#startstoptimer {
+    visibility:visible;
+}
+
+#clock {
+    border: 0;
+    width: 35px;
+    margin: 2px;
+    font-family: Courier;
+    font-size: 12px;
+    font-weight: 500;
+    padding-left: 2px;
+    padding-right: 2px;    
+    width: 85%;
+    margin-top: 4px;
+    border-radius: 3px;
+}
+
+#res {
+    border:0;
+    width: 30px;
+    margin-left: 5px;
+}
+.score {
+    float:right;
+    margin-right: 20px;
+    font-family:arial;
+    font-size:15px;   
+    font-weight:600;
+    color:red;
+    text-shadow: 0px 1px 1px #585050;
+    margin-top: 16px;
+}
+.time {
+    float: right;
+    font-family: Courier;
+    font-size: 12px;
+    font-weight: 500;
+    background: red;
+    color: white;
+    padding: 4px;
+    width: 10%;
+    border-radius: 5px;
+}
+
+.container {
+    clear: both;
+}
+
+
+#next {
+    display:none;
+    float: left;
+    margin-left: 35px;
+}
+
+.ctrl > div {
+  display: inline-block;
+}
+#main1 {
+    text-align: center;
+}
+#main2,#main3 {
+    display:none;
+}
+#head {
+    display:none;
+    margin-bottom: 50px;
+}
+#etext {
+    float: left;
+    padding-left: 150px;
+    text-align: left;
+    font-family:arial;
+    font-size:12px;
+}
+#ctrl {
+    text-align: center; 
+}
+#ctrl2 {
+    text-align: center; 
+    margin-left: -73px;
+    margin-top: -60px;
+}
+h1 {
+    float: left;
+    font-size: 30px;
+    margin-top: -20px;
+}
+.q-label {
+    margin-bottom:20px;
+    font-family:arial;
+    font-weight:600;
+    color:red;
+    text-shadow: 1px 0px 1px #585050;
+}
+
+#question {
+    margin-bottom:15px;
+    font-size: 18px;
+    height: 50px;
+}
+#quesoption input:hover {
+    box-shadow:none;
+}
+h2 {
+    font-size:30px;
+}
+h3 {
+    font-size:20px;
+    margin-top:10px;
+    margin-bottom:30px;
+    color: red;
+}
+input, #add1, .ui-button-text-only .ui-button-text{
+    margin: 5px 10px 0px 5px;
+    border: 1px solid tomato;
+    outline: 0;
+}
+input:hover, #add1:hover, .ui-button-text-only .ui-button-text:hover {
+     box-shadow: 0px 1px 8px 1px red;
+     outline: 0;
+}
+input[type="text"]:hover {
+    box-shadow: none;
+}
+.ui-button-text-only .ui-button-text{
+    padding: 1px 6px;
+    color:black;
+    background-color: #DDD;
+    margin-left: 12px;
+}
+.ui-widget {
+    font-size: 0.8em;
+}
+.ui-state-default, .ui-widget-content .ui-state-default {
+  border: 0;
+  background: none;
+}
+textarea.text.ui-widget-content.ui-corner-all {
+    width: 300px;
+      height: 16px;
+}
+.ui-dialog .ui-dialog-buttonpane button {
+      margin: 0;
+}
+.ui-widget-content {
+  background: rgba(255,255,255,0.8);
+
+  }
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float:left;
+}
+.ui-button {
+  padding-bottom: 5px;
+}
+.ui-dialog {
+   box-shadow: 0 8px 6px -6px black;
+}
+
+.ui-corner-all {
+      outline: 0;
+    border-bottom-right-radius:0;
+    border-bottom-left-radius:0;
+    border-top-left-radius:0;
+    border-top-right-radius:0;
+}
+.ui-widget input {
+  outline: 0;
+}
+
+.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle {
+    margin: 10px;
+    border: 0;
+    color: white;
+}
+.ui-widget-header,.ui-widget-content {
+  border: 1px solid #ccc;
+ 
+  color: #222222;
+  font-weight: bold;
+  }
+
+#totaltime {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-family:arial;
+    font-size:12px;
+}
+
+.slider .separator{
+    margin: 30px 0px;
+    height: 2px; 
+    position: relative;   
+    left: -35px;
+    width: 120%;
+    background: -moz-linear-gradient(left,  rgba(204,0,0,1) 0%, rgba(204,0,0,1) 35%, rgba(218,71,71,1) 53%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(204,0,0,1)), color-stop(35%,rgba(204,0,0,1)), color-stop(53%,rgba(218,71,71,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  rgba(204,0,0,1) 0%,rgba(204,0,0,1) 35%,rgba(218,71,71,1) 53%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  rgba(204,0,0,1) 0%,rgba(204,0,0,1) 35%,rgba(218,71,71,1) 53%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  rgba(204,0,0,1) 0%,rgba(204,0,0,1) 35%,rgba(218,71,71,1) 53%,rgba(255,255,255,0) 100%); /* IE10+ */
+background: linear-gradient(to right,  rgba(204,0,0,1) 0%,rgba(204,0,0,1) 35%,rgba(218,71,71,1) 53%,rgba(255,255,255,0) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
+}
+#result {
+    font-family:arial;
+    font-size:12px;
+    font-weight:600;
+    line-height: 15px;
+}
+
+#resimg {
+    float: right;
+    margin-right: 100px;
+}
+.ui-widget-overlay {
+      background: none;
+}
+
+progress,progress[role]{
+    -webkit-appearance:none;
+   border:1px solid #CCC; 
+}
+progress::-webkit-progress-bar{
+    background: white ;
+    box-shadow:  inset 0px 11px 8px -10px #CCC,
+        inset 0px -11px 8px -10px #CCC;
+}
+progress::-webkit-progress-value{
+    background: url('images/ui-bg_diagonals-thick_18_b81900_40x40.png') repeat; 
+  /*    background: repeating-linear-gradient(
+      45deg,
+      #606dbc,
+      #606dbc 10px,
+      #465298 10px,
+      #465298 20px
+     ); */
+}
+
+ .progress-box>progress{
+ /*    width:500px;
+ height:18px;
+ background: #f3f3f3;
+    border-radius: 0; */
+
+}
+.progress-box .p-value{
+    font-size: 18px;
+    font-weight:600;
+    color:red;
+} 
